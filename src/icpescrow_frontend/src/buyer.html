@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICP Escrow DApp - Buyer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ICP Escrow DApp - Buyer Page</h1>
+
+        <a href="index.html" class="button-link">
+            <div class="transaction-section">
+                <h2>Back to Home</h2>
+            </div>
+        </a>
+
+        <div class="transaction-section">
+            <h2>Buy ICP Coins</h2>
+            <label for="buyUserId">Buyer ID:</label>
+            <input type="text" id="buyUserId" placeholder="Enter Buyer ID">
+            <label for="buyEscrowId">Escrow ID:</label>
+            <input type="text" id="buyEscrowId" placeholder="Enter Escrow ID">
+            <button onclick="buyICPCoins()">Buy ICP Coins</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

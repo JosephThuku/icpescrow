@@ -1,19 +1,35 @@
-import { icpescrow_backend } from "../../declarations/icpescrow_backend";
+let userIdCounter = 1; // Counter for auto-incrementing user IDs
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const button = e.target.querySelector("button");
+async function createUser() {
+    const userId = `user${userIdCounter++}`; // Auto-incrementing user ID
+    await ICPEsrow.createUser({
+        id: userId,
+        wallet: { wallet_address: '', coin_symbol: '', balance: 0 }
+    });
+    alert(`User ${userId} created successfully!`);
+}
 
-  const name = document.getElementById("name").value.toString();
+async function sellICPCoins() {
+    const sellUserId = document.getElementById('sellUserId').value;
+    const icpAmount = parseInt(document.getElementById('icpAmount').value);
+    const usdtAmount = parseInt(document.getElementById('usdtAmount').value);
 
-  button.setAttribute("disabled", true);
+    const escrow = await ICPEsrow.sellICPCoins({
+        id: sellUserId,
+        wallet: { wallet_address: '', coin_symbol: '', balance: 0 }
+    }, icpAmount, usdtAmount);
 
-  // Interact with foo actor, calling the greet method
-  const greeting = await icpescrow_backend.greet(name);
+    alert(`Sell request initiated. Escrow ID: ${escrow.id}`);
+}
 
-  button.removeAttribute("disabled");
+async function buyICPCoins() {
+    const buyUserId = document.getElementById('buyUserId').value;
+    const buyEscrowId = document.getElementById('buyEscrowId').value;
 
-  document.getElementById("greeting").innerText = greeting;
+    const escrow = await ICPEsrow.buyICPCoins({
+        id: buyUserId,
+        wallet: { wallet_address: '', coin_symbol: '', balance: 0 }
+    }, { id: buyEscrowId, seller: { id: '', wallet: { wallet_address: '', coin_symbol: '', balance: 0 } }, buyer: { id: '', wallet: { wallet_address: '', coin_symbol: '', balance: 0 } }, icpAmount: 0, usdtAmount: 0, escrowWallet: { wallet_address: '', coin_symbol: '', balance: 0 }, status: '' });
 
-  return false;
-});
+    alert(`Buy request completed. Transaction ID: ${escrow.id}`);
+}
