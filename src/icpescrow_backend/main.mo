@@ -32,61 +32,16 @@ actor ICPEsrow {
   type Nat = Prim.Types.Nat;
   type Text = Prim.Types.Text;
 
-   // Counter for auto-incrementing wallet IDs
-  var walletIdCounter = 1;
-
-  // Counter for auto-incrementing escrow IDs
-  var escrowIdCounter = 1;
-
-  // Function to generate wallet address
   public func generateWalletAddress(): async Text {
-    return "Xhjbvewjbjdwkbjkwdbdw"; // Placeholder, replace with actual logic
-  };
-    // Function to create a new wallet
-  public func createWallet(coin_symbol: Text): async Wallet {
-    let wallet_id = walletIdCounter;
-    walletIdCounter += 1;
-
-    let wallet_address = await generateWalletAddress();
-    let newWallet = {
-      wallet_id = wallet_id;
-      wallet_address = wallet_address;
-      coin_symbol = coin_symbol;
-      balance = 0;
-    };
-    return newWallet;
+    var wallet_address = "Xhjbvewjbjdwkbjkwdbdw";
+    return wallet_address;
   };
 
-
+// function to create a new wallet the wallet address is generated from the generateWalletAddress function
   // public func createWallet(coin_symbol: Text): async Wallet {
-  // var wallet_address = await generateWalletAddress();
-  // var newWallet = {
-  //   wallet_address = wallet_address;
-  //   coin_symbol = coin_symbol;
-  //   balance = 0;
-  // };
-  // return newWallet;
+  //   var wallet_address = generateWalletAddress();
+  //   var newwallet = (wallet_address, coin_symbol, 0);
+  //   return newwallet;
   // };
 
-    public func sendCoin(sender: User, receiver: User, amount: Nat): async (Wallet, Wallet) {
-    assert sender.wallet.balance >= amount;
-    
-    var senderNewBalance = sender.wallet.balance - amount;
-    var receiverNewBalance = receiver.wallet.balance + amount;
-
-    var senderNewWallet = {
-      wallet_address = sender.wallet.wallet_address;
-      coin_symbol = sender.wallet.coin_symbol;
-      balance = senderNewBalance;
     };
-
-    var receiverNewWallet = {
-      wallet_address = receiver.wallet.wallet_address;
-      coin_symbol = receiver.wallet.coin_symbol;
-      balance = receiverNewBalance;
-    };
-
-    return (senderNewWallet, receiverNewWallet);
-  };
-
-};
