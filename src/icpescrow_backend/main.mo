@@ -32,20 +32,41 @@ actor ICPEsrow {
   type Nat = Prim.Types.Nat;
   type Text = Prim.Types.Text;
 
+   // Counter for auto-incrementing wallet IDs
+  var walletIdCounter = 1;
+
+  // Counter for auto-incrementing escrow IDs
+  var escrowIdCounter = 1;
+
+  // Function to generate wallet address
   public func generateWalletAddress(): async Text {
-    var wallet_address = "Xhjbvewjbjdwkbjkwdbdw";
-    return wallet_address;
+    return "Xhjbvewjbjdwkbjkwdbdw"; // Placeholder, replace with actual logic
+  };
+    // Function to create a new wallet
+  public func createWallet(coin_symbol: Text): async Wallet {
+    let wallet_id = walletIdCounter;
+    walletIdCounter += 1;
+
+    let wallet_address = await generateWalletAddress();
+    let newWallet = {
+      wallet_id = wallet_id;
+      wallet_address = wallet_address;
+      coin_symbol = coin_symbol;
+      balance = 0;
+    };
+    return newWallet;
   };
 
-  public func createWallet(coin_symbol: Text): async Wallet {
-  var wallet_address = await generateWalletAddress();
-  var newWallet = {
-    wallet_address = wallet_address;
-    coin_symbol = coin_symbol;
-    balance = 0;
-  };
-  return newWallet;
-  };
+
+  // public func createWallet(coin_symbol: Text): async Wallet {
+  // var wallet_address = await generateWalletAddress();
+  // var newWallet = {
+  //   wallet_address = wallet_address;
+  //   coin_symbol = coin_symbol;
+  //   balance = 0;
+  // };
+  // return newWallet;
+  // };
 
     public func sendCoin(sender: User, receiver: User, amount: Nat): async (Wallet, Wallet) {
     assert sender.wallet.balance >= amount;
@@ -67,7 +88,5 @@ actor ICPEsrow {
 
     return (senderNewWallet, receiverNewWallet);
   };
-
-  
 
 };
